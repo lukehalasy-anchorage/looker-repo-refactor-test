@@ -1,0 +1,26 @@
+name: auto-merge-on-approval-on-pr-into-prod
+on:
+  pull_request_review:
+    types: [submitted]
+
+env:
+  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
+jobs:
+  approved:
+    name: "Check approved"
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Merge Pull Request"
+        uses: "actions/github-script@v5"
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |
+            const repository = context.repo
+
+            await github.rest.pulls.merge({
+              merge_method: "merge",
+              owner: repository.owner,
+              pull_number: context.payload.pull_request.number,
+              repo: repository.repo,
+            })
