@@ -20,6 +20,7 @@ jobs:
           const currentPRIntoProd = await github.rest.pulls.list({
             owner,
             repo,
+            state: 'open',
             head: '${{ github.base_ref }}',
             base: 'production'
           })
