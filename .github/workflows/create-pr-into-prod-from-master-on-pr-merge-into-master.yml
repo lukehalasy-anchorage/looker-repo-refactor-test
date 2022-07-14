@@ -20,9 +20,12 @@ jobs:
           const currentPRIntoProd = await github.rest.pulls.list({
             owner,
             repo,
+            state: 'open',
             head: '${{ github.base_ref }}',
             base: 'production'
           })
+
+          console.log(currentPRIntoProd)
 
           if (currentPRIntoProd && currentPRIntoProd.data.length == 0) {
             const result = await github.rest.pulls.create({
