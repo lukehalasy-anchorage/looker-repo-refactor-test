@@ -17,7 +17,6 @@ jobs:
         if [[ "$GITHUB_HEAD_REF" == 'master' ]]; then exit 0; else exit 1; fi;
 
   check_that_the_pr_is_approved_and_merge:
-    name: "Check approved"
     if: |
       github.event.review.state == 'approved' &&
       github.event.pull_request.base.ref == 'production'
