@@ -6,7 +6,7 @@ on:
       - production
 
 env:
-  HEAD_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  HEAD_BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
 jobs:
   check_that_pr_is_from_master:
     if: github.event.pull_request.base.ref == 'production'
