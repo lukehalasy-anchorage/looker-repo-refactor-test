@@ -5,13 +5,14 @@ on:
     branches:
       - production
 
-
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
 jobs:
   approved:
     name: "Check approved"
-    if: github.event.review.state == 'approved'
+    if: |
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'production'
     runs-on: ubuntu-latest
     steps:
       - name: "Merge Pull Request"
