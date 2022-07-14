@@ -8,7 +8,15 @@ on:
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
 jobs:
-  approved:
+  check_that_pr_is_from_master:
+    if: github.event.pull_request.base.ref == 'production'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if the pull request is mergeable to production
+      run: |
+        if [[ "$GITHUB_HEAD_REF" == 'master' ]]; then exit 0; else exit 1; fi;
+
+  check_that_the_pr_is_approved_and_merge:
     name: "Check approved"
     if: |
       github.event.review.state == 'approved' &&
@@ -28,3 +36,4 @@ jobs:
               pull_number: context.payload.pull_request.number,
               repo: repository.repo,
             })
+    needs: check_that_pr_is_from_master
