@@ -2,6 +2,8 @@ name: auto-merge-on-approval-on-pr-into-prod
 on:
   pull_request_review:
     types: [submitted]
+    branches:
+      - 'production'
 
 env:
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
