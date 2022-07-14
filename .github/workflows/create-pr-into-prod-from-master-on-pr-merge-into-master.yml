@@ -21,7 +21,7 @@ jobs:
             owner,
             repo,
             state: 'open',
-            head: '${{ github.owner }}:${{ github.base_ref }}',
+            head: '${{ github.repository_owner }}:${{ github.base_ref }}',
             base: 'production'
           })
 
