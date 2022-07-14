@@ -2,7 +2,7 @@ name: only-allow-master-to-merge-into-prod
 on:
   pull_request:
     types:
-      - closed
+      - open
     branches:
       - production
 jobs:
