@@ -21,11 +21,11 @@ jobs:
             owner,
             repo,
             state: 'open',
-            head: '${{ github.base_ref }}',
+            head: '${{ github.owner }}:${{ github.base_ref }}',
             base: 'production'
           })
 
-          console.log("${{ github }}")
+          console.log(${{ github }})
           console.log("\n\n")
           console.log(currentPRIntoProd)
 
